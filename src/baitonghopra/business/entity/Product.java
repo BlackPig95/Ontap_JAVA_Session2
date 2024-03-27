@@ -114,12 +114,12 @@ public class Product
                         (this.productStatus == 1 ? "Hết hàng" : "Không bán"));
     }
 
-    public void inputData(Scanner scanner, Product[] productArray, Categories[] categoriesArray, boolean isAdding)
+    public void inputData(Scanner scanner, Product[] productArray, Categories[] categoriesArray, int updateIndex)
     {
         inputCatalogId(scanner, categoriesArray);
-        if (isAdding)//Nếu đang update thì không cho sửa Id
+        if (updateIndex == -1)//Nếu đang update thì không cho nhập Id
             inputProductId(scanner, productArray);
-        inputProductName(scanner, productArray, isAdding);
+        inputProductName(scanner, productArray, updateIndex);
         while (true)
         {
             System.out.println("Nhập giá sản phẩm");
@@ -185,13 +185,13 @@ public class Product
         return false;
     }
 
-    private void inputProductName(Scanner scanner, Product[] productArray, boolean isAdding)
+    private void inputProductName(Scanner scanner, Product[] productArray, int updateIndex)
     {
         while (true)
         {
             System.out.println("Nhập tên sản phẩm từ 10-50 ký tự");
             String inputName = scanner.nextLine();
-            if (checkInputName(productArray, inputName, isAdding))//true => Thỏa mãn các yêu câu
+            if (checkInputName(productArray, inputName, updateIndex))//true => Thỏa mãn các yêu câu
             {
                 this.productName = inputName;
                 break;
@@ -199,7 +199,7 @@ public class Product
         }
     }
 
-    private boolean checkInputName(Product[] productArray, String nameInput, boolean isAdding)
+    private boolean checkInputName(Product[] productArray, String nameInput, int updateIndex)
     {
         String regex = "^.{10,50}$";
         if (!nameInput.matches(regex))//Tên không đúng định dạng
@@ -211,13 +211,12 @@ public class Product
         {
             if (productArray[i] == null)//Duyệt hết list => Không bị trùng tên
                 return true;
+            if (updateIndex == i)//Nếu đang update thì không cần so sánh với chính nó
+                continue;
             if (productArray[i].productName.equals(nameInput))
             {
-                if (isAdding)//Nếu đang update thì cho phép nhập trùng tên cũ
-                {
-                    System.out.println("Tên đã tồn tại");
-                    return false; //=>Đã tồn tại
-                }
+                System.out.println("Tên đã tồn tại");
+                return false; //=>Đã tồn tại
             }
         }
         return true;

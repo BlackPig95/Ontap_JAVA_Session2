@@ -69,15 +69,15 @@ public class Categories
                 this.catalogId, this.catalogName, this.description, this.catalogStatus ? "Hoạt động" : "Không hoạt động");
     }
 
-    public void inputData(Scanner scanner, Categories[] categoriesArr, boolean isAdding)
+    public void inputData(Scanner scanner, Categories[] categoriesArr, int updateIndex)
     {
-        inputName(scanner, categoriesArr, isAdding);
+        inputName(scanner, categoriesArr, updateIndex);
         System.out.println("Nhập mô tả danh mục");
         this.description = scanner.nextLine();
         inputStatus(scanner);
     }
 
-    private void inputName(Scanner scanner, Categories[] categoriesArr, boolean isAdding)
+    private void inputName(Scanner scanner, Categories[] categoriesArr, int updateIndex)
     {
         while (true)
         {
@@ -97,12 +97,12 @@ public class Categories
                     if (categoriesArr[i] == null)//Tránh việc duyệt phần tử null
                         break;
                     if (inputName.equals(categoriesArr[i].catalogName))
-                    {   //Cho phép đặt lại tên cũ nếu là hành động update
-                        if (isAdding)
-                        {
-                            System.out.println("Tên danh mục đã tồn tại, vui lòng chọn tên khác");
-                            nameExisted = true;
-                        }
+                    {
+                        if (updateIndex == i)//Nếu đang update thì không cần so với chính nó
+                            continue;
+
+                        System.out.println("Tên danh mục đã tồn tại, vui lòng chọn tên khác");
+                        nameExisted = true;
                         break;
                     }
                 }

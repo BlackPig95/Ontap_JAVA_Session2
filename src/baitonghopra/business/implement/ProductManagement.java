@@ -76,7 +76,7 @@ public class ProductManagement implements IProduct
         {
             Product newProduct = new Product();
             System.out.println("Nhập thông tin của sản phẩm thứ " + (i + 1));
-            newProduct.inputData(scanner, productList, categoriesList, true);
+            newProduct.inputData(scanner, productList, categoriesList, -1);
             for (int j = 0; j < productList.length; j++)
             {   //Thêm sản phẩm mơi vào vị trí đang null => Đảm bảo mảng kéo dài liên tục
                 if (productList[j] == null)
@@ -189,7 +189,7 @@ public class ProductManagement implements IProduct
                         break;
                     case 7:
                         System.out.println("Mời nhập thông tin mới cho danh mục này");
-                        productList[updateIndex].inputData(scanner, productList, categoriesList, false);
+                        productList[updateIndex].inputData(scanner, productList, categoriesList, updateIndex);
                         System.out.println("Cập nhật thành công, thông tin mới như sau:");
                         productList[updateIndex].displayData();
                         break;

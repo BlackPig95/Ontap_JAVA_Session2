@@ -60,7 +60,7 @@ public class CategoryManagement implements ICategory
         for (int i = 0; i < numberOfCategories; i++)
         {
             Categories newCat = new Categories();
-            newCat.inputData(scanner, categoriesList, true);
+            newCat.inputData(scanner, categoriesList, -1);
             for (int j = 0; j < categoriesList.length; j++)
             {
                 if (categoriesList[j] == null)
@@ -122,7 +122,7 @@ public class CategoryManagement implements ICategory
                         break;
                     case 4:
                         System.out.println("Mời nhập thông tin mới cho danh mục này");
-                        categoriesList[updateIndex].inputData(scanner, categoriesList, false);
+                        categoriesList[updateIndex].inputData(scanner, categoriesList, updateIndex);
                         System.out.println("Cập nhật thành công, thông tin mới như sau:");
                         categoriesList[updateIndex].displayData();
                         break;
